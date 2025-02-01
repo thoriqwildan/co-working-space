@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Roles {
+  user
+  admin
+}
+
+model User {
+  user_id       Int       @id       @default(autoincrement())
+  name          String    @db.VarChar(255)
+  email         String    @db.VarChar(255)
+  phone_number  String    @db.VarChar(20)
+  password      String    @db.VarChar(255)
+  role          Roles     @default(user)
+  bookings      Booking[]
+  notifications Notification[]
+
+  @@map("users")
+}
+
+model Notification {
+  notification_id     Int       @id       @default(autoincrement())
+  user                User      @relation(fields: [user_id], references: [user_id])
+  user_id             Int
+  message             String    @db.VarChar(255)
+  notification_type   String    @db.VarChar(100)
+  sent_time           DateTime  @default(now())
+
+  @@map("notifications")
+}
+
+model Space {
+  space_id            Int       @id       @default(autoincrement())
+  name                String    @db.VarChar(255)
+  location            String    @db.VarChar(255)
+  capacity            Int       @db.Int
+  type                String    @db.VarChar(100)
+  rooms               Room[]
+  bookings            Booking[]
+
+  @@map("spaces")
+}
+
+model Room {
+  room_id             Int       @id       @default(autoincrement())
+  equiment            String    @db.VarChar(255)
+  space               Space     @relation(fields: [space_id], references: [space_id])
+  space_id            Int
+
+  @@map("rooms")
+}
+
+model Booking {
+  booking_id          Int       @id       @default(autoincrement())
+  user                User      @relation(fields: [user_id], references: [user_id])
+  user_id             Int
+  space               Space     @relation(fields: [space_id], references: [space_id])
+  space_id            Int
+  start_time          DateTime  @default(now())
+  end_time            DateTime?
+  status              String    @db.VarChar(100)
+  payments            Payment?
+
+  @@map("bookings")
+}
+
+model Payment {
+  payment_id        Int         @id         @default(autoincrement())
+  booking           Booking     @relation(fields: [booking_id], references: [booking_id])
+  booking_id        Int         @unique
+  amount            Decimal     @db.Decimal(10, 2)  
+  payment_method    String      @db.VarChar(100)
+  payment_date      DateTime    @default(now())
+
+  @@map("payments")
+}
