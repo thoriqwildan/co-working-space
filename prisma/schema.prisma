@@ -24,6 +24,7 @@ model User {
   email         String    @unique   @db.VarChar(255)
   phone_number  String    @db.VarChar(20)
   password      String    @db.VarChar(255)
+  imgUrl        String?   @default("/user_files/profiles/index.png")
   role          Roles     @default(user)
   bookings      Booking[]
   notifications Notification[]

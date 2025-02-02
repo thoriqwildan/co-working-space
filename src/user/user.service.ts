@@ -46,4 +46,10 @@ export class UserService {
         return this.toProfileRes(data)
     }
 
+    async uploadImage(user_id: number, pathFile: string) {
+        await this.prismaService.user.update({
+            where: { user_id: user_id },
+            data: { imgUrl: pathFile }
+        })
+    }
 }
