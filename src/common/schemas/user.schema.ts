@@ -41,3 +41,10 @@ export const ResetPasswordSchema = z.object({
     }
 })
 export type ResetPasswordDto = z.infer<typeof ResetPasswordSchema>
+
+// Update Profile
+export const UpdateProfileSchema = z.object({
+    name: z.string().min(1).max(100).optional(),
+    phone_number: z.string().min(1).max(20).optional(),
+})
+export type UpdateProfileDto = z.infer<typeof UpdateProfileSchema>

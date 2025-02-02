@@ -39,10 +39,10 @@ export class AuthService {
         const loginReq = this.validationService.validate(UserLoginSchema, dto)
         const user = await this.prismaService.user.findUnique({ where: { email: loginReq.email } })
 
-        if (!user) throw new UnauthorizedException('Invalid Credentials')
+        if (!user) throw new UnauthorizedException('Username or Password or Wrong')
         
         const isPasswordValid = await bcrypt.compare(dto.password, user.password)
-        if (!isPasswordValid) { throw new UnauthorizedException('Invalid Credentials') }
+        if (!isPasswordValid) { throw new UnauthorizedException('Username or Password is Wrong') }
 
         const token = this.jwtService.sign({ id: user.user_id, email: user.email, role: user.role })
 

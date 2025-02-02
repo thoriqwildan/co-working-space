@@ -27,10 +27,18 @@ export class AuthController {
     }
 
     @Delete('/logout')
-    async logout(@Res() res: Response) {
+    async logout(@Res({passthrough: true}) res: Response) {
         res.clearCookie('access_token')
-        return res.json({"message": "Logout Successfully"})
+        return {custommsg: "Logout Successfully"}
     }
+
+    // @Get('/test') 
+    // async test() {
+    //     return {
+    //         custommsg: 'coba',
+    //         data: 'ini data coba'
+    //     }
+    // }
 
     @Post('/reset-password')
     @UseGuards(JwtRoleGuard)
