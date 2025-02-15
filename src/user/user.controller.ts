@@ -5,13 +5,14 @@ import { Logger } from 'winston';
 import { JwtRoleGuard } from 'src/common/guards/jwtrole.guard';
 import { Roles } from 'src/common/role.decorator';
 import { Request } from 'express';
-import { UpdateProfileDto } from 'src/common/schemas/user.schema';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import * as path from 'path';
 import * as fs from 'fs'
+import { UpdateProfileDto } from './dto/update.dto';
+import { GetResponseDto } from './dto/get-response.dto';
 
-@Controller('/user')
+@Controller('/users')
 export class UserController {
     constructor(
        private userService: UserService,
@@ -21,7 +22,7 @@ export class UserController {
     @Get('/me')
     @UseGuards(JwtRoleGuard)
     @Roles('user')
-    async getMe(@Req() req: Request) {
+    async getMe(@Req() req: Request): Promise<GetResponseDto> {
         return this.userService.getProfile(req)
     }
 

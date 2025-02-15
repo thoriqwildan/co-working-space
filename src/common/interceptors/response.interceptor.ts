@@ -6,10 +6,10 @@ export class ResponseInterceptor implements NestInterceptor {
     intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
         return next.handle().pipe(
             map((data) => {
-                const message = data?.custommsg || 'Request Berhasil'
+                const message = data?.msg || 'Request Berhasil'
 
-                if (data?.custommsg) {
-                    delete data.custommsg
+                if (data?.msg) {
+                    delete data.msg
                 }
 
                 return {

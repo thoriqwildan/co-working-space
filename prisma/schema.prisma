@@ -49,7 +49,7 @@ model Space {
   location            String    @db.VarChar(255)
   capacity            Int       @db.Int
   type                String    @db.VarChar(100)
-  rooms               Room[]
+  rooms               Room?
   bookings            Booking[]
 
   @@map("spaces")
@@ -59,7 +59,7 @@ model Room {
   room_id             Int       @id       @default(autoincrement())
   equiment            String    @db.VarChar(255)
   space               Space     @relation(fields: [space_id], references: [space_id])
-  space_id            Int
+  space_id            Int       @unique
 
   @@map("rooms")
 }

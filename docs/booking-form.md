@@ -36,8 +36,6 @@ Response Body (success):
 }
 ```
 
-
-
 ## Get Room Details
 
 Endpoint GET /rooms/:id

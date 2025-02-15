@@ -1,10 +1,12 @@
 import { HttpException, Injectable, Req, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { PrismaService } from "src/common/prisma/prisma.service";
-import { ResetPasswordDto, ResetPasswordSchema, UserLoginDto, UserLoginSchema, UserRegisterDto, UserRegisterSchema } from "src/common/schemas/user.schema";
+import { ResetPasswordSchema, UserLoginDto, UserLoginSchema, UserRegisterDto, UserRegisterSchema } from "src/common/schemas/user.schema";
 import * as bcrypt from 'bcrypt'
 import { ValidationService } from "src/common/validation.service";
 import { Request } from "express";
+import { User } from "src/user/domain/user";
+import { ResetPasswordDto } from "./dto/auth.dto";
 
 @Injectable()
 export class AuthService {
@@ -46,16 +48,24 @@ export class AuthService {
 
         const token = this.jwtService.sign({ id: user.user_id, email: user.email, role: user.role })
 
-        return token
+        const userData: User = { 
+            id: user.user_id,
+            name: user.name,
+            email: user.email,
+            phone_number: user.phone_number,
+            img_url: user.imgUrl,
+            role: user.role
+         }
+
+        return {token, userData}
     }
 
     async resetpassword(@Req() req: Request, dto: ResetPasswordDto) {
-        const resetReq = this.validationService.validate(ResetPasswordSchema, dto)
 
-        resetReq.new_password = await bcrypt.hash(resetReq.new_password, 10)
+        dto.password = await bcrypt.hash(dto.password, 10)
         await this.prismaService.user.update({
             where: {user_id: req.user!['id']},
-            data: { password: resetReq.new_password }
+            data: { password: dto.password }
         })
 
         return "Password Reset Successfully"

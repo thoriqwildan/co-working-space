@@ -36,8 +36,6 @@ Response Body (error):
 }
 ```
 
-
-
 ## Logout User
 
 Endpoint : POST /auth/logout
@@ -49,8 +47,6 @@ Response Body (success):
     "message": "Logout Successfully"
 }
 ```
-
-
 
 ## Forgot Password
 
@@ -71,8 +67,6 @@ Response Body (success):
     "message": "Password reset link sent to email"
 }
 ```
-
-
 
 ## Reset Password
 
@@ -99,8 +93,6 @@ Response Body (success):
 }
 ```
 
-
-
 # User Management
 
 ## Get current User Profile
@@ -119,8 +111,6 @@ Response Body:
     "created_at": "2024-02-01T12:00:00Z"
 }
 ```
-
-
 
 ## Update User Profile
 
@@ -148,8 +138,6 @@ Response Body (success):
 }
 ```
 
-
-
 ## Change Password
 
 Endpoint : PATCH /users/change-password
@@ -172,8 +160,6 @@ Response Body (success):
 }
 ```
 
-
-
 ## Upload Profile Picture
 
 Endpoint : POST /users/me/avatar
@@ -189,8 +175,6 @@ Response Body (success):
     "message": "Avatar changed successfully"
 }
 ```
-
-
 
 # Admin User Management (role: admin)
 
@@ -221,8 +205,6 @@ Response Body (success):
 }
 ```
 
-
-
 ## Delete User
 
 Endpoint : DELETE /admin/users/:id
@@ -234,8 +216,6 @@ Response Body (success):
     "message": "User deleted successfully"
 }
 ```
-
-
 
 ## Assign Role to User
 
@@ -262,5 +242,3 @@ Response Body (success):
     }
 }
 ```
-
-

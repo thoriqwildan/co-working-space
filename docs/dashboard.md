@@ -6,11 +6,9 @@ Endpoint : GET /dashboard/overview
 
 ```json
 {
-    
+
 }
 ```
-
-
 
 ## Get Monthly Statistic
 
@@ -28,8 +26,6 @@ Response Body (success):
     ]
 }
 ```
-
-
 
 ## Get Recent Orders
 
@@ -63,8 +59,6 @@ Response Body (success):
 }
 ```
 
-
-
 ## Get Top Room selling
 
 Endpoint : GET /dashboard/top-products?limits=3
@@ -80,5 +74,3 @@ Response Body (success):
     ]
 }
 ```
-
-
