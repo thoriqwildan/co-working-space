@@ -26,6 +26,13 @@ export class CreateSpaceDto {
     })
     type: string
 
+    @ApiProperty({
+        example: 50000,
+        description: 'Price per hour'
+    })
+    @IsNumber()
+    price: number
+
     @IsString()
     @ApiProperty({
         example: 'Proyektor || null'

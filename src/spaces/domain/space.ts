@@ -27,6 +27,11 @@ export class Space {
     type: string
 
     @ApiProperty({
+        type: Number
+    })
+    price: number
+
+    @ApiProperty({
         type: String
     })
     equipment?: string

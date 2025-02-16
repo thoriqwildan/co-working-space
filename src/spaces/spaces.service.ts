@@ -8,6 +8,7 @@ import { User } from 'src/user/domain/user';
 import { NullableType } from 'src/common/types/nullable.type';
 import { UpdateSpaceDto } from './dto/update-space.dto';
 import { SpaceResponseDto } from './dto/space-response.dto';
+import { FilterSpaceDto } from './dto/query-space.dto';
 
 @Injectable()
 export class SpacesService {
@@ -23,6 +24,7 @@ export class SpacesService {
                 location: createSpaceDto.location,
                 capacity: createSpaceDto.capacity,
                 type: createSpaceDto.type,
+                price: createSpaceDto.price,
                 rooms: { create: { equiment: createSpaceDto.equipment! } }
             }
         })
@@ -35,11 +37,12 @@ export class SpacesService {
             location: data.location,
             capacity: data.capacity,
             type: data.type,
+            price: data.price,
             equipment: room?.equiment!
         }
     }
 
-    async findAll(paginationDto: PaginationDto) {
+    async findAll(paginationDto: FilterSpaceDto) {
         return this.spaceRepository.findManyWithPagination(paginationDto)
     }
 
@@ -57,6 +60,7 @@ export class SpacesService {
         if(updateSpaceDto.location) { data.location = updateSpaceDto.location }
         if(updateSpaceDto.capacity) { data.capacity = updateSpaceDto.capacity }
         if(updateSpaceDto.type) { data.type = updateSpaceDto.type }
+        if(updateSpaceDto.price) { data.price = updateSpaceDto.price }
         if(updateSpaceDto.equipment && roomdata) { roomdata.equiment = updateSpaceDto.equipment }
 
         const result = await this.prismaService.space.update({
@@ -81,6 +85,7 @@ export class SpacesService {
             capacity: result.capacity,
             location: result.location,
             type: result.type,
+            price: result.price,
             room: {id: roomdata?.room_id!, equipment: roomdata?.equiment!}
         }
     }

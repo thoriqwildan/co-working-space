@@ -49,6 +49,7 @@ model Space {
   location            String    @db.VarChar(255)
   capacity            Int       @db.Int
   type                String    @db.VarChar(100)
+  price               Int       @db.Int
   rooms               Room?
   bookings            Booking[]
 
@@ -70,7 +71,7 @@ model Booking {
   user_id             Int
   space               Space     @relation(fields: [space_id], references: [space_id])
   space_id            Int
-  start_time          DateTime  @default(now())
+  start_time          DateTime  
   end_time            DateTime?
   status              String    @db.VarChar(100)
   payments            Payment?

@@ -14,6 +14,9 @@ export class UpdateSpaceDto extends PartialType(CreateSpaceDto) {
     @ApiPropertyOptional({ example: 'Meeting Room', type: String })
     type?: string | undefined;
 
+    @ApiPropertyOptional({ example: 40000, description: 'Price per hour', type: Number })
+    price?: number | undefined;
+
     @ApiPropertyOptional({ example: 'Proyektor || null', type: String })
     equipment?: string | undefined;
 }

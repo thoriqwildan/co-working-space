@@ -10,6 +10,7 @@ import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { User } from 'src/user/domain/user';
 import { NullableType } from 'src/common/types/nullable.type';
 import { UpdateSpaceDto } from './dto/update-space.dto';
+import { FilterSpaceDto } from './dto/query-space.dto';
 
 @ApiBearerAuth()
 @ApiTags('Spaces')
@@ -25,7 +26,7 @@ export class SpacesController {
     }
 
     @Get()
-    async findAll(@Query() paginationDto: PaginationDto) {
+    async findAll(@Query() paginationDto: FilterSpaceDto) {
         return this.spaceService.findAll(paginationDto)
     }
 
