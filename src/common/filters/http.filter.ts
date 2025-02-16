@@ -1,9 +1,12 @@
-import { ExceptionFilter, Catch, ArgumentsHost, HttpStatus, HttpException } from "@nestjs/common";
+import { ExceptionFilter, Catch, ArgumentsHost, HttpStatus, HttpException, Inject } from "@nestjs/common";
 import { Response } from "express";
+import { WINSTON_MODULE_PROVIDER } from "nest-winston";
+import { Logger } from "winston";
 import { ZodError } from "zod";
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
+
     catch(exception: any, host: ArgumentsHost) {
         const response = host.switchToHttp().getResponse()
 

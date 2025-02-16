@@ -1,11 +1,14 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/common/prisma/prisma.service';
 import { CreateBookingDto } from './dto/create-booking.dto';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { BookingRepository } from './repositories/booking.repository';
 
 @Injectable()
 export class BookingService {
     constructor(
-        private prismaService: PrismaService
+        private prismaService: PrismaService,
+        private bookingRepository: BookingRepository
     ) {}
 
     async create(createBookingDto: CreateBookingDto) {
@@ -24,5 +27,9 @@ export class BookingService {
             }
         })
         return data
+    }
+
+    async findAll(paginationDto: PaginationDto) {
+        return this.bookingRepository.findManyWithPagination(paginationDto)
     }
 }
