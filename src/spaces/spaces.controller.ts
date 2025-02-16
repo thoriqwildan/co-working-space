@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiParam, ApiProperty, ApiTags } from '@nestjs/swagger';
 import { JwtRoleGuard } from 'src/common/guards/jwtrole.guard';
 import { Roles } from 'src/common/role.decorator';
@@ -53,5 +53,16 @@ export class SpacesController {
     })
     async update(@Param('id') id: User['id'], @Body() updateSpaceDto: UpdateSpaceDto): Promise<SpaceResponseDto> {
         return this.spaceService.update(id, updateSpaceDto)
+    }
+
+    @Delete(':id')
+    @ApiParam({
+        name: 'id',
+        type: String,
+        required: true
+    })
+    async remove(@Param('id') id: User['id']) {
+        await this.spaceService.remove(id)
+        return { msg: "Space Deleted" }
     }
 }

@@ -84,4 +84,9 @@ export class SpacesService {
             room: {id: roomdata?.room_id!, equipment: roomdata?.equiment!}
         }
     }
+
+    async remove(id: User['id']) {
+        await this.prismaService.room.delete({ where: {space_id: Number(id)} })
+        await this.prismaService.space.delete({where: {space_id: Number(id)}})
+    }
 }
