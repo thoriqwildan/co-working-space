@@ -19,7 +19,7 @@ export class BookingService {
         const spaceMustBeNotAvailable = await this.prismaService.booking.findFirst({ 
             where: { 
                 space_id: Number(createBookingDto.space_id),
-                AND: {status: 'Pending'} 
+                AND: {status: 'In-progress'} 
             } 
         })
         if (spaceMustBeNotAvailable) {throw new HttpException('Space is booked', 400)}
@@ -30,7 +30,7 @@ export class BookingService {
                 space_id: Number(createBookingDto.space_id),
                 start_time: new Date(createBookingDto.start_time),
                 end_time: new Date(createBookingDto.end_time),
-                status: 'Pending'
+                status: 'In-progress'
             }
         })
         return {

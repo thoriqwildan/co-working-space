@@ -28,7 +28,7 @@ export class BookingResponseDto {
     
     @IsString()
     @ApiProperty({
-        example: 'Pending'
+        example: 'In-progress'
     })
     status: string
 }

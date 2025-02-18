@@ -23,6 +23,9 @@ export class SpaceBookingController {
     @ApiProperty({
         title: 'Create Booking'
     })
+    @ApiOkResponse({
+        type: BookingResponseDto
+    })
     async create(@Req() req: Request, @Param('id') space_id: number, @Body() createBookingDto: CreateBookingDto) {
         createBookingDto.user_id = req.user!['id']
         createBookingDto.space_id = space_id
