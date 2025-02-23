@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Inject, Param, Post, Query, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Query,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { BookingService } from './booking.service';
 import { Logger } from 'winston';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
@@ -11,13 +21,13 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 @ApiTags('Booking')
 @Controller('booking')
 export class BookingController {
-    constructor(
-        private bookingService: BookingService,
-        @Inject(WINSTON_MODULE_PROVIDER) private logger: Logger
-    ) {}
+  constructor(
+    private bookingService: BookingService,
+    @Inject(WINSTON_MODULE_PROVIDER) private logger: Logger,
+  ) {}
 
-    @Get()
-    async getAll(@Query() paginationDto: PaginationDto) {
-        return this.bookingService.findAll(paginationDto)
-    }
+  @Get()
+  async getAll(@Query() paginationDto: PaginationDto) {
+    return this.bookingService.findAll(paginationDto);
+  }
 }

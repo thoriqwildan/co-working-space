@@ -6,24 +6,24 @@ import { CreatePaymentDto } from './dto/create-payment.dto';
 
 @Injectable()
 export class PaymentService {
-    constructor(
-        private prismaService: PrismaService,
-        @Inject(WINSTON_MODULE_PROVIDER) private logger: Logger
-    ) {}
+  constructor(
+    private prismaService: PrismaService,
+    @Inject(WINSTON_MODULE_PROVIDER) private logger: Logger,
+  ) {}
 
-    async createPayment(createPaymentDto: CreatePaymentDto) {
-        const data = await this.prismaService.payment.create({
-            data: {
-                booking_id: createPaymentDto.booking_id,
-                amount: createPaymentDto.amount,
-                payment_method: createPaymentDto.payment_method,
-            }
-        })
-        await this.prismaService.booking.update({
-            where: {booking_id: createPaymentDto.booking_id},
-            data: {status: 'PAID'}
-        })
+  async createPayment(createPaymentDto: CreatePaymentDto) {
+    const data = await this.prismaService.payment.create({
+      data: {
+        booking_id: createPaymentDto.booking_id,
+        amount: createPaymentDto.amount,
+        payment_method: createPaymentDto.payment_method,
+      },
+    });
+    await this.prismaService.booking.update({
+      where: { booking_id: createPaymentDto.booking_id },
+      data: { status: 'PAID' },
+    });
 
-        return data
-    }
+    return data;
+  }
 }

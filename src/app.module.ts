@@ -6,7 +6,14 @@ import { SpacesModule } from './spaces/spaces.module';
 import { BookingModule } from './booking/booking.module';
 import { PaymentModule } from './payment/payment.module';
 @Module({
-  imports: [CommonModule, AuthModule, UserModule, SpacesModule, BookingModule, PaymentModule],
+  imports: [
+    CommonModule,
+    AuthModule,
+    UserModule,
+    SpacesModule,
+    BookingModule,
+    PaymentModule,
+  ],
   controllers: [],
   providers: [],
 })

@@ -11,17 +11,17 @@ import { JwtRoleGuard } from 'src/common/guards/jwtrole.guard';
 @UseGuards(JwtRoleGuard)
 @Controller('payment')
 export class PaymentController {
-    constructor(
-        private paymentService: PaymentService,
-        @Inject(WINSTON_MODULE_PROVIDER) private logger: Logger
-    ) {}
+  constructor(
+    private paymentService: PaymentService,
+    @Inject(WINSTON_MODULE_PROVIDER) private logger: Logger,
+  ) {}
 
-    @Post()
-    async createPayment(@Body() createPaymentDto: CreatePaymentDto) {
-        const result = await this.paymentService.createPayment(createPaymentDto)
-        return {
-            "msg": "Payment created successfully",
-            data: result
-        }
-    }
+  @Post()
+  async createPayment(@Body() createPaymentDto: CreatePaymentDto) {
+    const result = await this.paymentService.createPayment(createPaymentDto);
+    return {
+      msg: 'Payment created successfully',
+      data: result,
+    };
+  }
 }

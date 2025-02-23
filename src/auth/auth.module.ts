@@ -6,17 +6,17 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 
 @Module({
-    imports: [
-        JwtModule.registerAsync({
-            imports: [ConfigModule],
-            inject: [ConfigService],
-            useFactory: async (configService: ConfigService) => ({
-                secret: configService.get<string>('JWT_SECRET'),
-                signOptions: { expiresIn: configService.get<string>('JWT_EXPIRES_IN') }
-            })
-        })
-    ],
-    providers: [AuthService],
-    controllers: [AuthController]
+  imports: [
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET'),
+        signOptions: { expiresIn: configService.get<string>('JWT_EXPIRES_IN') },
+      }),
+    }),
+  ],
+  providers: [AuthService],
+  controllers: [AuthController],
 })
 export class AuthModule {}

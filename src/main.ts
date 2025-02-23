@@ -9,10 +9,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER))
-  app.useGlobalFilters(new HttpExceptionFilter())
-  app.useGlobalInterceptors(new ResponseInterceptor())
-  app.use(cookieParser())
+  app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
+  app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalInterceptors(new ResponseInterceptor());
+  app.use(cookieParser());
+  app.enableCors();
 
   const config = new DocumentBuilder()
     .setTitle('Co-Working Space API')
@@ -23,6 +24,6 @@ async function bootstrap() {
   const document = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document());
 
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(process.env.PORT ?? 3001);
 }
 bootstrap();

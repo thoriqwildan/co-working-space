@@ -1,5 +1,21 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiOkResponse, ApiParam, ApiProperty, ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiParam,
+  ApiProperty,
+  ApiTags,
+} from '@nestjs/swagger';
 import { JwtRoleGuard } from 'src/common/guards/jwtrole.guard';
 import { Roles } from 'src/common/role.decorator';
 import { CreateSpaceDto } from './dto/spaces.dto';
@@ -18,52 +34,55 @@ import { FilterSpaceDto } from './dto/query-space.dto';
 @Roles('admin')
 @Controller('spaces')
 export class SpacesController {
-    constructor(private spaceService: SpacesService) {}
+  constructor(private spaceService: SpacesService) {}
 
-    @Post()
-    async create(@Body() createSpaceDto: CreateSpaceDto): Promise<Space> {
-        return this.spaceService.create(createSpaceDto)
-    }
+  @Post()
+  async create(@Body() createSpaceDto: CreateSpaceDto): Promise<Space> {
+    return this.spaceService.create(createSpaceDto);
+  }
 
-    @Get()
-    async findAll(@Query() paginationDto: FilterSpaceDto) {
-        return this.spaceService.findAll(paginationDto)
-    }
+  @Get()
+  async findAll(@Query() paginationDto: FilterSpaceDto) {
+    return this.spaceService.findAll(paginationDto);
+  }
 
-    @ApiOkResponse({
-        type: Space
-    })
-    @Get(':id')
-    @ApiParam({
-        name: 'id',
-        type: String,
-        required: true
-    })
-    async findOne(@Param('id') id: User['id']): Promise<SpaceResponseDto> {
-        return this.spaceService.findById(id)
-    }
+  @ApiOkResponse({
+    type: Space,
+  })
+  @Get(':id')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    required: true,
+  })
+  async findOne(@Param('id') id: User['id']): Promise<SpaceResponseDto> {
+    return this.spaceService.findById(id);
+  }
 
-    @ApiOkResponse({
-        type: Space
-    })
-    @Patch(':id')
-    @ApiParam({
-        name: 'id',
-        type: String,
-        required: true
-    })
-    async update(@Param('id') id: User['id'], @Body() updateSpaceDto: UpdateSpaceDto): Promise<SpaceResponseDto> {
-        return this.spaceService.update(id, updateSpaceDto)
-    }
+  @ApiOkResponse({
+    type: Space,
+  })
+  @Patch(':id')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    required: true,
+  })
+  async update(
+    @Param('id') id: User['id'],
+    @Body() updateSpaceDto: UpdateSpaceDto,
+  ): Promise<SpaceResponseDto> {
+    return this.spaceService.update(id, updateSpaceDto);
+  }
 
-    @Delete(':id')
-    @ApiParam({
-        name: 'id',
-        type: String,
-        required: true
-    })
-    async remove(@Param('id') id: User['id']) {
-        await this.spaceService.remove(id)
-        return { msg: "Space Deleted" }
-    }
+  @Delete(':id')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    required: true,
+  })
+  async remove(@Param('id') id: User['id']) {
+    await this.spaceService.remove(id);
+    return { msg: 'Space Deleted' };
+  }
 }

@@ -5,6 +5,6 @@ import { SpaceRepository } from './repositories/space.repository';
 
 @Module({
   providers: [SpacesService, SpaceRepository],
-  controllers: [SpacesController]
+  controllers: [SpacesController],
 })
 export class SpacesModule {}
